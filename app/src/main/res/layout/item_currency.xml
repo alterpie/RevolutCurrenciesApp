@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:background="@drawable/selector_accent"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <ImageView
+            android:id="@+id/image_view_currency_image"
+            android:layout_width="48dp"
+            tools:src="@tools:sample/avatars"
+            android:layout_height="48dp"/>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/margin_unit"
+            android:layout_marginStart="@dimen/margin_unit"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/text_view_currency_name"
+                android:layout_width="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                tools:text="GBP"/>
+
+        <TextView
+                android:id="@+id/text_view_currency_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="British pounds"
+                android:textSize="12sp"/>
+    </LinearLayout>
+
+    <EditText
+            android:id="@+id/edit_text_amount"
+            tools:text="99,79"
+            android:textSize="22sp"
+            android:inputType="numberDecimal"
+            android:layout_marginLeft="@dimen/margin_unit"
+            android:layout_marginStart="@dimen/margin_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+</LinearLayout>
