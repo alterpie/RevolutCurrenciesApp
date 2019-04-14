@@ -1,0 +1,52 @@
+ext {
+    compileSdkVersion = 28
+    minSdkVersion = 16
+    targetSdkVersion = compileSdkVersion
+
+    kotlin_version = '1.3.21'
+    daggerVersion = '2.16'
+    javaxAnnotationVersion = '1.0'
+    javaxInjectVersion = '1'
+    appCompatSupportVersion = '1.0.2'
+    recyclerViewVersion = '1.0.0'
+    materialVersion = '1.0.0'
+    espressoVersion = '3.1.1'
+    testRunnerVersion = '1.1.1'
+    archComponentsVersion = '2.0.0'
+    moshiVersion = '1.7.0'
+    retrofitVersion = '2.5.0'
+    rxJava2Version = '2.2.8'
+    rxAndroidVersion = '2.1.1'
+
+    jUnitVersion = '4.12'
+    espressoVersion = '3.1.1'
+    testRunnerVersion = '1.1.1'
+
+    libs = [
+            kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+
+            recyclerView            : "androidx.recyclerview:recyclerview:$recyclerViewVersion",
+            appCompat               : "androidx.appcompat:appcompat:$appCompatSupportVersion",
+
+            daggerCompiler          : "com.google.dagger:dagger-compiler:$daggerVersion",
+            dagger                  : "com.google.dagger:dagger:$daggerVersion",
+            daggerSupport           : "com.google.dagger:dagger-android-support:$daggerVersion",
+            daggerAndroidProcessor  : "com.google.dagger:dagger-android-processor:$daggerVersion",
+
+            retrofit                : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitRxCallAdapter   : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+            moshi                   : "com.squareup.moshi:moshi:$moshiVersion",
+            moshiRetrofitAdapter    : "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
+            moshiCodegen            : "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion",
+
+            rxJava2                 : "io.reactivex.rxjava2:rxjava:$rxJava2Version",
+            archComponents          : "androidx.lifecycle:lifecycle-extensions:$archComponentsVersion",
+
+            espresso                : "androidx.test.espresso:espresso-core:$espressoVersion",
+            testRunner              : "androidx.test:runner:$testRunnerVersion",
+            junit                   : "junit:junit:$jUnitVersion",
+            testIntrumentationRunner: "androidx.test.runner.AndroidJUnitRunner"
+    ]
+
+}
+

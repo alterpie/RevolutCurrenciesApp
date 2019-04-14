@@ -1,0 +1,44 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.example.revolutcurrenciesapp"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner libs.testIntrumentationRunner
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation libs.kotlin
+
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
+
+    implementation libs.appCompat
+    implementation libs.recyclerView
+
+    implementation libs.dagger
+    implementation libs.daggerSupport
+    kapt libs.daggerAndroidProcessor
+    kapt libs.daggerCompiler
+
+    implementation libs.archComponents
+
+    testImplementation libs.junit
+    androidTestImplementation libs.espresso
+    androidTestImplementation libs.testRunner
+}
