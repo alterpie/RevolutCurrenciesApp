@@ -2,6 +2,7 @@ package com.example.revolutcurrenciesapp.view.currency
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.revolutcurrenciesapp.R
 import com.example.revolutcurrenciesapp.base.BaseActivity
@@ -19,6 +20,10 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+    }
+
     override fun getLayoutId(): Int = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +37,7 @@ class MainActivity : BaseActivity() {
         }
 
         val items = mutableListOf<CurrencyModel>().apply {
-            repeat(15){
+            repeat(15) {
                 add(
                     CurrencyModel(
                         UUID.randomUUID().toString().substring(0..3), 509.0,
