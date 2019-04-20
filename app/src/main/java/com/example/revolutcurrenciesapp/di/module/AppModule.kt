@@ -5,13 +5,16 @@ import com.example.revolutcurrenciesapp.AppDelegate
 import dagger.Module
 import dagger.Provides
 import dagger.android.support.AndroidSupportInjectionModule
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Singleton
 
 @Module(
     includes = [
         AndroidSupportInjectionModule::class,
         ActivityModule::class,
-        ViewModelModule::class
+        ViewModelModule::class,
+        DataModule::class
     ]
 )
 class AppModule {
@@ -21,4 +24,8 @@ class AppModule {
     fun provideContext(app: AppDelegate): Context {
         return app.applicationContext
     }
+
+    @Provides
+    @Singleton
+    fun provideWorkerScheduler() : Scheduler = Schedulers.io()
 }

@@ -2,8 +2,10 @@ apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation libs.kotlin
+
+    implementation libs.javaxAnnotation
+    implementation libs.javaxInject
 
     implementation libs.rxJava2
 }

@@ -12,7 +12,9 @@ class LoadingItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     private val verticalMargin = context.resources.getDimensionPixelSize(R.dimen.margin_unit)
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-        val viewType = parent.adapter?.getItemViewType(parent.getChildAdapterPosition(view))
+        val position = parent.getChildAdapterPosition(view)
+        if (position == RecyclerView.NO_POSITION) return
+        val viewType = parent.adapter?.getItemViewType(position)
         if (viewType == AdapterKeys.LOADING_ITEM) outRect.top = verticalMargin
     }
 }

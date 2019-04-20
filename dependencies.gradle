@@ -17,7 +17,8 @@ ext {
     retrofitVersion = '2.5.0'
     rxJava2Version = '2.2.8'
     rxAndroidVersion = '2.1.1'
-
+    okhttpVersion = '3.12.1'
+    
     jUnitVersion = '4.12'
     espressoVersion = '3.1.1'
     testRunnerVersion = '1.1.1'
@@ -32,12 +33,15 @@ ext {
             dagger                  : "com.google.dagger:dagger:$daggerVersion",
             daggerSupport           : "com.google.dagger:dagger-android-support:$daggerVersion",
             daggerAndroidProcessor  : "com.google.dagger:dagger-android-processor:$daggerVersion",
+            javaxAnnotation         : "javax.annotation:jsr250-api:$javaxAnnotationVersion",
+            javaxInject             : "javax.inject:javax.inject:$javaxInjectVersion",
 
             retrofit                : "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitRxCallAdapter   : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
             moshi                   : "com.squareup.moshi:moshi:$moshiVersion",
             moshiRetrofitAdapter    : "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
             moshiCodegen            : "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion",
+            okhttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$okhttpVersion",
 
             rxJava2                 : "io.reactivex.rxjava2:rxjava:$rxJava2Version",
             archComponents          : "androidx.lifecycle:lifecycle-extensions:$archComponentsVersion",

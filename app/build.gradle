@@ -40,7 +40,14 @@ dependencies {
     kapt libs.daggerAndroidProcessor
     kapt libs.daggerCompiler
 
+    implementation libs.okhttpLoggingInterceptor
+    implementation libs.moshi
+    implementation libs.moshiRetrofitAdapter
+    implementation libs.retrofitRxCallAdapter
+
     implementation libs.archComponents
+
+    implementation libs.rxJava2
 
     testImplementation libs.junit
     androidTestImplementation libs.espresso

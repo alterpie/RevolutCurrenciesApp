@@ -13,11 +13,10 @@ class CurrencyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         val position = parent.getChildAdapterPosition(view)
+        if (position == RecyclerView.NO_POSITION) return
         val viewType = parent.adapter?.getItemViewType(position)
         if (viewType == AdapterKeys.CURRENCY_ITEM) {
-            if (position != 0) {
-                outRect.top = topMargin
-            }
+            if (position != 0) outRect.top = topMargin
             outRect.left = horizontalMargin
             outRect.right = horizontalMargin
         }

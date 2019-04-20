@@ -15,23 +15,28 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "API_APP_URL", "\"https://revolut.duckdns.org\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "API_APP_URL", "https://revolut.duckdns.org"
         }
     }
-
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation libs.kotlin
 
     implementation project(path: ':domain')
 
     implementation libs.retrofit
-    implementation libs.moshiRetrofitAdapter
     implementation libs.moshi
     kapt libs.moshiCodegen
     implementation libs.rxJava2
+
+    implementation libs.javaxAnnotation
+    implementation libs.javaxInject
 }
