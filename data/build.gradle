@@ -36,6 +36,7 @@ dependencies {
     implementation libs.moshi
     kapt libs.moshiCodegen
     implementation libs.rxJava2
+    implementation libs.retrofitRxCallAdapter
 
     implementation libs.javaxAnnotation
     implementation libs.javaxInject

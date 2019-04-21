@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.domain.Interactor
+import com.example.domain.error.AppError
 import com.example.revolutcurrenciesapp.mapper.BaseModelMapper
 import io.reactivex.Single
 
@@ -13,10 +14,8 @@ class ViewModelAction<Params, Response, Model>(
 ) {
 
     private val liveDataValue = MutableLiveData<Model>()
-    private val liveDataError = MutableLiveData<Throwable>()
+    private val liveDataError = MutableLiveData<AppError>()
     private val liveDataProgress = MutableLiveData<Boolean>()
-
-    private var success: ((Model) -> Unit)? = null
 
     fun execute(params: Params): Single<Response> {
         liveDataProgress.postValue(true)
@@ -25,17 +24,16 @@ class ViewModelAction<Params, Response, Model>(
         return interactor.execute(params)
             .doOnSuccess {
                 val model = mapper.map(it)
-                success?.invoke(model)
                 liveDataValue.postValue(model)
             }
-            .doOnError { liveDataError.postValue(it) }
+            .doOnError { liveDataError.postValue(interactor.errorMapper.transform(it)) }
             .doAfterTerminate { liveDataProgress.postValue(false) }
     }
 
     fun observe(
         owner: LifecycleOwner,
         doOnSuccess: (model: Model) -> Unit = {},
-        doOnError: (error: Throwable) -> Unit = {},
+        doOnError: (error: AppError) -> Unit = {},
         doOnToggleProgress: (toggle: Boolean) -> Unit = {}
     ) {
         liveDataValue.observe(owner, Observer {

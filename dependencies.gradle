@@ -28,6 +28,7 @@ ext {
 
             recyclerView            : "androidx.recyclerview:recyclerview:$recyclerViewVersion",
             appCompat               : "androidx.appcompat:appcompat:$appCompatSupportVersion",
+            material                : "com.google.android.material:material:$materialVersion",
 
             daggerCompiler          : "com.google.dagger:dagger-compiler:$daggerVersion",
             dagger                  : "com.google.dagger:dagger:$daggerVersion",
