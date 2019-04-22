@@ -26,6 +26,7 @@
                 android:layout_width="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@android:color/black"
                 android:layout_height="wrap_content"
                 tools:text="GBP"/>
 
@@ -40,7 +41,9 @@
     <EditText
             android:id="@+id/edit_text_amount"
             tools:text="99,79"
+            android:textColor="@android:color/black"
             android:textSize="22sp"
+            android:minEms="2"
             android:inputType="numberDecimal"
             android:layout_marginLeft="@dimen/margin_unit"
             android:layout_marginStart="@dimen/margin_unit"

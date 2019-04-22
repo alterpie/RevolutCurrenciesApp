@@ -24,6 +24,13 @@ abstract class BaseAdapter<T : ViewType> : RecyclerView.Adapter<RecyclerView.Vie
         (delegateAdapters[getItemViewType(position)] as ViewTypeDelegateAdapter<ViewType, RecyclerView.ViewHolder>)
             .onBindViewHolder(holder, itemList[position])
 
+    @Suppress("UNCHECKED_CAST")
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
+        if (payloads.isEmpty()) super.onBindViewHolder(holder, position, payloads)
+        else (delegateAdapters[getItemViewType(position)] as ViewTypeDelegateAdapter<ViewType, RecyclerView.ViewHolder>)
+            .onBindViewHolder(holder, itemList[position], payloads)
+    }
+
     override fun getItemViewType(position: Int): Int = itemList[position].getViewType()
 
     open fun setItems(items: List<T>) {

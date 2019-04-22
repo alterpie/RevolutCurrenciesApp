@@ -9,6 +9,10 @@ import com.example.revolutcurrenciesapp.model.LoadingModel
 
 class LoadingItemDelegateAdapter :
     ViewTypeDelegateAdapter<LoadingModel, LoadingItemDelegateAdapter.LoadingItemViewHolder> {
+    override fun onBindViewHolder(holder: LoadingItemViewHolder, item: LoadingModel, payloads: MutableList<Any>) {
+
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup): LoadingItemViewHolder =
         LoadingItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_loading, parent, false))
 

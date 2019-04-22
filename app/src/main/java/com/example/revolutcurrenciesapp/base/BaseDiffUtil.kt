@@ -29,4 +29,9 @@ abstract class BaseDiffUtil<T : ViewType>(private val oldItems: List<T>, private
         oldItems[oldItemPosition] == newItems[newItemPosition]
 
     abstract fun itemsSame(oldItemPosition: Int, newItemPosition: Int): Boolean
+
+    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? =
+        changePayload(oldItemPosition, newItemPosition)
+
+    abstract fun changePayload(oldItemPosition: Int, newItemPosition: Int): Any?
 }

@@ -2,16 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
+              android:layout_height="match_parent"
               android:orientation="vertical"
-              android:layout_height="match_parent">
+              android:focusableInTouchMode="true">
 
-    <Button android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:id="@+id/button_load"/>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_currencies"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_unit_x2"
             android:overScrollMode="never"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/margin_unit_x2"
+            android:paddingTop="@dimen/margin_unit_x2"
             tools:listitem="@layout/item_currency"/>
 </LinearLayout>

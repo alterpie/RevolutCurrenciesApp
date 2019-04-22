@@ -24,9 +24,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideContext(app: AppDelegate): Context {
-        return app.applicationContext
-    }
+    fun provideContext(app: AppDelegate): Context = app.applicationContext
 
     @Provides
     @Singleton

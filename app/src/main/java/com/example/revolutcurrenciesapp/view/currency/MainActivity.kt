@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.error.AppError
 import com.example.revolutcurrenciesapp.R
 import com.example.revolutcurrenciesapp.base.BaseActivity
 import com.example.revolutcurrenciesapp.common.adapter.LoadingItemDecoration
+import com.example.revolutcurrenciesapp.model.CurrencyModel
+import com.example.revolutcurrenciesapp.util.hideKeyboard
+import com.example.revolutcurrenciesapp.util.transformToMessage
 import com.example.revolutcurrenciesapp.view.currency.adapter.CurrenciesAdapter
 import com.example.revolutcurrenciesapp.view.currency.adapter.CurrencyItemDecoration
 import com.google.android.material.snackbar.Snackbar
@@ -15,9 +19,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
     private val currenciesAdapter: CurrenciesAdapter by lazy {
-        CurrenciesAdapter {
-            viewModel.setBaseCurrency(it.name)
-        }
+        CurrenciesAdapter({ viewModel.setBaseCurrency(it) },
+            { viewModel.setBaseAmount(it) })
     }
 
     private val viewModel: MainViewModel by lazy {
@@ -29,32 +32,44 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        button_load.setOnClickListener { viewModel.loadCurrencies() }
-        recycler_view_currencies.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
+        recycler_view_currencies.run {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@MainActivity).apply {
+                addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+                        if (dy > 0 && this@apply.findFirstVisibleItemPosition() == 3) hideKeyboard()
+                    }
+                })
+            }
             adapter = currenciesAdapter
             addItemDecoration(LoadingItemDecoration(this@MainActivity))
             addItemDecoration(CurrencyItemDecoration(this@MainActivity))
         }
 
         viewModel.loadCurrenciesAction.observe(
-            this,
-            currenciesAdapter::setItems,
+            this, {
+                currenciesAdapter.setItems(it)
+            },
             this::handleError,
             this::displayProgress
         )
-
+        if (!viewModel.isBaseCurrencySet())
+            viewModel.setBaseCurrency(CurrencyModel("EUR", 100.0, R.string.euro, R.drawable.ic_european_union))
         viewModel.loadCurrencies()
     }
 
     private fun handleError(appError: AppError) {
-        Snackbar.make(findViewById<View>(android.R.id.content), appError.toString(), Snackbar.LENGTH_INDEFINITE)
-            .setAction("Retry") { viewModel.loadCurrencies() }.show()
+        Snackbar.make(
+            findViewById<View>(android.R.id.content),
+            appError.transformToMessage(this),
+            Snackbar.LENGTH_INDEFINITE
+        ).setAction(getString(R.string.retry)) { viewModel.loadCurrencies() }.show()
     }
 
     private fun displayProgress(display: Boolean) {
         if (display) {
-            if (viewModel.loadCurrenciesAction.getValueData().isNullOrEmpty()) currenciesAdapter.addLoadingItem()
+            if (currenciesAdapter.itemCount == 0) currenciesAdapter.addLoadingItem()
         } else currenciesAdapter.removeLoadingItem()
     }
 }

@@ -17,6 +17,9 @@ class ViewModelAction<Params, Response, Model>(
     private val liveDataError = MutableLiveData<AppError>()
     private val liveDataProgress = MutableLiveData<Boolean>()
 
+    var mutateData: ((Model) -> Model)? = null
+    var error: ((AppError) -> Unit)? = null
+
     fun execute(params: Params): Single<Response> {
         liveDataProgress.postValue(true)
         liveDataError.postValue(null)
@@ -24,9 +27,12 @@ class ViewModelAction<Params, Response, Model>(
         return interactor.execute(params)
             .doOnSuccess {
                 val model = mapper.map(it)
-                liveDataValue.postValue(model)
+                liveDataValue.postValue(mutateData?.invoke(model) ?: model)
             }
-            .doOnError { liveDataError.postValue(interactor.errorMapper.transform(it)) }
+            .doOnError {
+                val transformedError = interactor.errorMapper.transform(it)
+                error?.invoke(transformedError)
+                liveDataError.postValue(transformedError) }
             .doAfterTerminate { liveDataProgress.postValue(false) }
     }
 
@@ -48,4 +54,6 @@ class ViewModelAction<Params, Response, Model>(
     }
 
     fun getValueData() = liveDataValue.value
+
+    fun postToLiveData(model: Model) = liveDataValue.postValue(model)
 }
