@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.revolutcurrenciesapp.common.adapter.ViewType
 import com.example.revolutcurrenciesapp.common.adapter.ViewTypeDelegateAdapter
-import com.example.revolutcurrenciesapp.model.LoadingModel
 
 abstract class BaseAdapter<T : ViewType> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -34,7 +33,6 @@ abstract class BaseAdapter<T : ViewType> : RecyclerView.Adapter<RecyclerView.Vie
     override fun getItemViewType(position: Int): Int = itemList[position].getViewType()
 
     open fun setItems(items: List<T>) {
-        removeLoadingItem()
         val diffCallback = getDiffUtil(itemList, items)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         itemList = items
@@ -66,13 +64,5 @@ abstract class BaseAdapter<T : ViewType> : RecyclerView.Adapter<RecyclerView.Vie
         val diffCallback = getDiffUtil(oldItems, itemList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         diffResult.dispatchUpdatesTo(this)
-    }
-
-    open fun removeLoadingItem() {
-        removeItem(LoadingModel::class.java)
-    }
-
-    open fun addLoadingItem() {
-        addItem(LoadingModel())
     }
 }
