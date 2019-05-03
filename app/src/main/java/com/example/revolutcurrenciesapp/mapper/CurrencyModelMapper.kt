@@ -5,8 +5,8 @@ import com.example.revolutcurrenciesapp.R
 import com.example.revolutcurrenciesapp.model.CurrencyModel
 import javax.inject.Inject
 
-class CurrencyModelMapper @Inject constructor() : BaseModelMapper<CurrencyDomain, List<CurrencyModel>>() {
-    override fun map(response: CurrencyDomain): List<CurrencyModel> = response.rates.map {
+class CurrencyModelMapper @Inject constructor() : BaseModelMapper<List<CurrencyDomain.Currency>, List<CurrencyModel>>() {
+    override fun map(response: List<CurrencyDomain.Currency>): List<CurrencyModel> = response.map {
         CurrencyModel(it.name, it.amount, mapCurrencyDetails(it.name), mapCurrencyFlag(it.name))
     }
 

@@ -1,3 +1,3 @@
 package com.example.domain
 
-data class LoadCurrenciesParams(val base: String)
+data class LoadCurrenciesParams(val base: CurrencyDomain.Currency)

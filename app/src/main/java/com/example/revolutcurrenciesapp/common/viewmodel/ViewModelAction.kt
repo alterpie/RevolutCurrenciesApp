@@ -13,11 +13,13 @@ class ViewModelAction<Params, Response, Model>(
     private val mapper: BaseModelMapper<Response, Model>
 ) {
 
+    val valueData: Model?
+        get() = liveDataValue.value
+
     private val liveDataValue = MutableLiveData<Model>()
     private val liveDataError = MutableLiveData<AppError>()
     private val liveDataProgress = MutableLiveData<Boolean>()
 
-    var mutateData: ((Model) -> Model)? = null
     var error: ((AppError) -> Unit)? = null
 
     fun execute(params: Params): Single<Response> {
@@ -26,13 +28,13 @@ class ViewModelAction<Params, Response, Model>(
 
         return interactor.execute(params)
             .doOnSuccess {
-                val model = mapper.map(it)
-                liveDataValue.postValue(mutateData?.invoke(model) ?: model)
+                liveDataValue.postValue(mapper.map(it))
             }
             .doOnError {
                 val transformedError = interactor.errorMapper.transform(it)
                 error?.invoke(transformedError)
-                liveDataError.postValue(transformedError) }
+                liveDataError.postValue(transformedError)
+            }
             .doAfterTerminate { liveDataProgress.postValue(false) }
     }
 
@@ -52,8 +54,6 @@ class ViewModelAction<Params, Response, Model>(
             if (it != null) doOnToggleProgress(it)
         })
     }
-
-    fun getValueData() = liveDataValue.value
 
     fun postToLiveData(model: Model) = liveDataValue.postValue(model)
 }

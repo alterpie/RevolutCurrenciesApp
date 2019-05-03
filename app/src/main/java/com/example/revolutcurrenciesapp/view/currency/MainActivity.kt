@@ -38,7 +38,7 @@ class MainActivity : BaseActivity() {
                 addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                         super.onScrolled(recyclerView, dx, dy)
-                        if (dy > 0 && this@apply.findFirstVisibleItemPosition() == 3) hideKeyboard()
+                        if (dy > 0 && this@apply.findFirstVisibleItemPosition() == HIDE_KEYBOARD_ITEMS_THRESHOLD) hideKeyboard()
                     }
                 })
             }
@@ -54,9 +54,10 @@ class MainActivity : BaseActivity() {
             this::handleError,
             this::displayProgress
         )
-        if (!viewModel.isBaseCurrencySet())
-            viewModel.setBaseCurrency(CurrencyModel("EUR", 100.0, R.string.euro, R.drawable.ic_european_union))
-        viewModel.loadCurrencies()
+
+        val initialCurrency = CurrencyModel("EUR", 100.0, R.string.euro, R.drawable.ic_european_union)
+
+        viewModel.loadCurrencies(initialCurrency.name, initialCurrency.amount)
     }
 
     private fun handleError(appError: AppError) {
@@ -64,12 +65,16 @@ class MainActivity : BaseActivity() {
             findViewById<View>(android.R.id.content),
             appError.transformToMessage(this),
             Snackbar.LENGTH_INDEFINITE
-        ).setAction(getString(R.string.retry)) { viewModel.loadCurrencies() }.show()
+        ).setAction(getString(R.string.retry)) { viewModel.retryLoad() }.show()
     }
 
     private fun displayProgress(display: Boolean) {
         if (display) {
             if (currenciesAdapter.itemCount == 0) currenciesAdapter.addLoadingItem()
         } else currenciesAdapter.removeLoadingItem()
+    }
+
+    companion object {
+        private const val HIDE_KEYBOARD_ITEMS_THRESHOLD = 3
     }
 }
