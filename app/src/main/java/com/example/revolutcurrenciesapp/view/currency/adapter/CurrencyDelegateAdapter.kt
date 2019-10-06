@@ -21,12 +21,22 @@ class CurrencyDelegateAdapter(
 ) :
     ViewTypeDelegateAdapter<CurrencyModel, CurrencyDelegateAdapter.CurrencyViewHolder> {
 
-    override fun onBindViewHolder(holder: CurrencyViewHolder, item: CurrencyModel, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(
+        holder: CurrencyViewHolder,
+        item: CurrencyModel,
+        payloads: MutableList<Any>
+    ) {
         holder.bind(payloads[0] as CurrencyPayload)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): CurrencyViewHolder =
-        CurrencyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_currency, parent, false))
+        CurrencyViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_currency,
+                parent,
+                false
+            )
+        )
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, item: CurrencyModel) =
         holder.bind(item)
@@ -45,7 +55,12 @@ class CurrencyDelegateAdapter(
                 }
             }
             edit_text_amount.addTextChangedListener(object : TextWatcherAbstract() {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
                     cursorPosition = edit_text_amount.selectionStart
                 }
 
@@ -62,8 +77,9 @@ class CurrencyDelegateAdapter(
                 edit_text_amount.setSelection(cursorPosition)
 
             text_view_currency_name.text = item.name
-            text_view_currency_details.text = text_view_currency_details.context.getString(item.currencyDetails)
-            image_view_currency_image.setImageResource(item.countryFlagDrawable)
+            text_view_currency_details.text =
+                text_view_currency_details.context.getString(item.currencyDetails.name)
+            image_view_currency_image.setImageResource(item.currencyDetails.icon)
         }
 
         fun bind(currencyPayload: CurrencyPayload) {

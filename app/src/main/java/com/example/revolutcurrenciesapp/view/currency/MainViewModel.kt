@@ -7,7 +7,6 @@ import com.example.revolutcurrenciesapp.base.BaseViewModel
 import com.example.revolutcurrenciesapp.common.viewmodel.ViewModelAction
 import com.example.revolutcurrenciesapp.mapper.CurrencyModelMapper
 import com.example.revolutcurrenciesapp.model.CurrencyModel
-import com.example.revolutcurrenciesapp.util.plusAssign
 import com.example.revolutcurrenciesapp.util.subscribeEmpty
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
@@ -30,19 +29,26 @@ class MainViewModel @Inject constructor(
     fun loadCurrencies(name: String, amount: Double) {
         if (!started) {
             started = true
-            disposables += Observable.interval(REPEAT_PERIOD_SECONDS, TimeUnit.SECONDS)
+            Observable.interval(REPEAT_PERIOD_SECONDS, TimeUnit.SECONDS)
                 .map {
-                    disposables += loadCurrenciesAction.execute(
+                    loadCurrenciesAction.execute(
                         LoadCurrenciesParams(CurrencyDomain.Currency(name, amount))
                     ).subscribeEmpty()
+                        .autoDispose()
                 }
                 .subscribe()
+                .autoDispose()
         }
     }
 
     fun setBaseCurrency(currencyModel: CurrencyModel) {
         val oldBaseCurrency = loadCurrenciesUseCase.getBaseCurrency()
-        loadCurrenciesUseCase.updateBaseCurrency(CurrencyDomain.Currency(currencyModel.name, currencyModel.amount))
+        loadCurrenciesUseCase.updateBaseCurrency(
+            CurrencyDomain.Currency(
+                currencyModel.name,
+                currencyModel.amount
+            )
+        )
         if ((loadCurrenciesAction.valueData ?: emptyList()).isNotEmpty())
             loadCurrenciesAction.postToLiveData(mutableListOf<CurrencyModel>().apply {
                 addAll((loadCurrenciesAction.valueData ?: emptyList()))
@@ -52,7 +58,9 @@ class MainViewModel @Inject constructor(
     }
 
     fun setBaseAmount(amount: Double) {
-        loadCurrenciesAction.postToLiveData(currencyModelMapper.map(loadCurrenciesUseCase.updateAmounts(amount)))
+        loadCurrenciesAction.postToLiveData(
+            currencyModelMapper.map(loadCurrenciesUseCase.updateAmounts(amount))
+        )
     }
 
     fun retryLoad() {

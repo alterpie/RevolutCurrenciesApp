@@ -9,6 +9,7 @@ import com.example.domain.error.AppError
 import com.example.revolutcurrenciesapp.R
 import com.example.revolutcurrenciesapp.base.BaseActivity
 import com.example.revolutcurrenciesapp.common.adapter.LoadingItemDecoration
+import com.example.revolutcurrenciesapp.model.CurrencyDetails
 import com.example.revolutcurrenciesapp.model.CurrencyModel
 import com.example.revolutcurrenciesapp.util.hideKeyboard
 import com.example.revolutcurrenciesapp.util.transformToMessage
@@ -38,7 +39,9 @@ class MainActivity : BaseActivity() {
                 addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                         super.onScrolled(recyclerView, dx, dy)
-                        if (dy > 0 && this@apply.findFirstVisibleItemPosition() == HIDE_KEYBOARD_ITEMS_THRESHOLD) hideKeyboard()
+                        if (dy > 0 && this@apply.findFirstVisibleItemPosition() == HIDE_KEYBOARD_ITEMS_THRESHOLD) {
+                            hideKeyboard()
+                        }
                     }
                 })
             }
@@ -55,7 +58,11 @@ class MainActivity : BaseActivity() {
             this::displayProgress
         )
 
-        val initialCurrency = CurrencyModel("EUR", 100.0, R.string.euro, R.drawable.ic_european_union)
+        val initialCurrency = CurrencyModel(
+            "EUR",
+            100.0,
+            CurrencyDetails(R.string.euro, R.drawable.ic_european_union)
+        )
 
         viewModel.loadCurrencies(initialCurrency.name, initialCurrency.amount)
     }
