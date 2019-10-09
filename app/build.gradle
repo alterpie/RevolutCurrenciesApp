@@ -36,10 +36,8 @@ dependencies {
     implementation libs.recyclerView
     implementation libs.material
 
-    implementation libs.dagger
-    implementation libs.daggerSupport
-    kapt libs.daggerAndroidProcessor
-    kapt libs.daggerCompiler
+    implementation libs.koin
+    implementation libs.koinViewModel
 
     implementation libs.okhttpLoggingInterceptor
     implementation libs.moshi
@@ -48,6 +46,8 @@ dependencies {
     implementation libs.archComponents
 
     implementation libs.rxJava2
+    implementation libs.coroutines
+    implementation libs.coroutinesAndroid
 
     testImplementation libs.junit
     androidTestImplementation libs.espresso

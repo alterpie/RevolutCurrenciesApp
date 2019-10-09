@@ -1,16 +1,19 @@
 package com.example.revolutcurrenciesapp.mapper
 
-import com.example.domain.CurrencyDomain
+import com.example.domain.currency.model.Currency
 import com.example.revolutcurrenciesapp.R
-import com.example.revolutcurrenciesapp.model.CurrencyDetails
-import com.example.revolutcurrenciesapp.model.CurrencyModel
-import javax.inject.Inject
+import com.example.revolutcurrenciesapp.features.currency.model.CurrencyDetails
+import com.example.revolutcurrenciesapp.features.currency.model.CurrencyUi
 
-class CurrencyModelMapper @Inject constructor() :
-    BaseModelMapper<List<CurrencyDomain.Currency>, List<CurrencyModel>>() {
+class CurrencyModelMapper :
+    BaseModelMapper<List<Currency>, List<CurrencyUi>>() {
 
-    override fun map(response: List<CurrencyDomain.Currency>): List<CurrencyModel> = response.map {
-        CurrencyModel(it.name, it.amount, mapCurrencyDetails(it.name))
+    override fun map(response: List<Currency>): List<CurrencyUi> = response.map {
+        CurrencyUi(
+            it.name,
+            it.amount,
+            mapCurrencyDetails(it.name)
+        )
     }
 
     private fun mapCurrencyDetails(currencyName: String): CurrencyDetails {
@@ -51,6 +54,9 @@ class CurrencyModelMapper @Inject constructor() :
             else -> R.string.empty_string to 0
         }
 
-        return CurrencyDetails(name, flagIcon)
+        return CurrencyDetails(
+            name,
+            flagIcon
+        )
     }
 }

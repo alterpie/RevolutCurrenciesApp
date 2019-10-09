@@ -1,7 +1,7 @@
 package com.example.domain
 
-import io.reactivex.Single
+import com.example.domain.currency.model.CurrenciesData
 
 interface CurrencyRepository {
-    fun loadCurrencies(base:String): Single<CurrencyDomain>
+    suspend fun loadCurrencies(base:String): CurrenciesData
 }

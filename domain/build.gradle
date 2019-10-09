@@ -8,4 +8,5 @@ dependencies {
     implementation libs.javaxInject
 
     implementation libs.rxJava2
+    implementation libs.coroutines
 }

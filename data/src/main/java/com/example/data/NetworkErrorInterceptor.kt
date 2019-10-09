@@ -1,0 +1,22 @@
+package com.example.data
+
+import android.net.ConnectivityManager
+import okhttp3.Interceptor
+import okhttp3.Response
+
+class NetworkErrorInterceptor(private val connectivityManager: ConnectivityManager) : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+//        if (!hasNetworkConnection()) {
+//            throw NoConnectivityException()
+//        }
+        val request = chain.request()
+
+        return chain.proceed(request)
+    }
+
+    private fun hasNetworkConnection(): Boolean {
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+    }
+
+}

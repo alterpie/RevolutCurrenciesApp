@@ -1,25 +1,21 @@
 package com.example.revolutcurrenciesapp
 
-import android.app.Activity
 import android.app.Application
-import com.example.revolutcurrenciesapp.di.DaggerAppComponent
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import javax.inject.Inject
+import com.example.revolutcurrenciesapp.di.appModule
+import com.example.revolutcurrenciesapp.di.networkModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
-class AppDelegate : Application(), HasActivityInjector {
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+class AppDelegate : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
-        DaggerAppComponent
-            .builder()
-            .application(this)
-            .build()
-            .inject(this)
+        startKoin {
+            androidLogger()
+            androidContext(this@AppDelegate)
+            modules(listOf(appModule, networkModule))
+        }
     }
-    override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
 }

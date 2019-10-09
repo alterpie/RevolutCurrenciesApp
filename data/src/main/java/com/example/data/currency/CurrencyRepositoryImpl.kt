@@ -2,15 +2,13 @@ package com.example.data.currency
 
 import com.example.data.RevolutApi
 import com.example.data.mapper.CurrencyResponseMapper
-import com.example.domain.CurrencyDomain
 import com.example.domain.CurrencyRepository
-import io.reactivex.Single
-import javax.inject.Inject
+import com.example.domain.currency.model.CurrenciesData
 
-class CurrencyRepositoryImpl @Inject constructor(
-    private val revolutApi: RevolutApi,
-    private val currencyResponseMapper: CurrencyResponseMapper
+class CurrencyRepositoryImpl(
+    private val revolutApi: RevolutApi
 ) : CurrencyRepository {
-    override fun loadCurrencies(base: String): Single<CurrencyDomain> =
-        revolutApi.loadCurrencies(base).map { currencyResponseMapper.map(it) }
+    override suspend fun loadCurrencies(base: String): CurrenciesData {
+        return revolutApi.loadCurrencies(base).let(CurrencyResponseMapper()::map)
+    }
 }
