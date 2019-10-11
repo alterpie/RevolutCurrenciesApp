@@ -26,7 +26,7 @@ class CurrencyViewModel(
 
     fun loadCurrencies() {
         val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-
+            handleLoadError(throwable)
         }
         scope.launch(exceptionHandler) {
             currencyInteractor.observeCurrencies()
@@ -37,11 +37,15 @@ class CurrencyViewModel(
                 }
                 .onStart { updateState { copy(screenState = ScreenState.Loading) } }
                 .catch {
-                    handleError(it)
-                    updateState { copy(screenState = ScreenState.Error(it)) }
+                    handleLoadError(it)
                 }
                 .launchIn(this)
         }
+    }
+
+    private fun handleLoadError(throwable: Throwable) {
+        handleError(throwable)
+        updateState { copy(screenState = ScreenState.Error(throwable)) }
     }
 
     private fun mapToUiModel(currenciesData: CurrenciesData): List<CurrencyUi> {
