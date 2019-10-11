@@ -48,6 +48,9 @@ dependencies {
     implementation libs.archComponents
 
     implementation libs.rxJava2
+    implementation libs.rxAndroid
+    implementation libs.retrofitRxCallAdapter
+    implementation libs.rxKotlin
 
     testImplementation libs.junit
     androidTestImplementation libs.espresso

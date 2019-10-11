@@ -1,15 +1,14 @@
 package com.example.revolutcurrenciesapp.di.module
 
 import android.content.Context
-import com.example.data.error.ApiErrorMapper
-import com.example.domain.error.AppError
-import com.example.domain.error.ErrorMapper
+import android.net.ConnectivityManager
+import com.example.domain.currency.CurrencyInteractor
+import com.example.domain.currency.CurrencyInteractorImpl
+import com.example.domain.currency.CurrencyRepository
 import com.example.revolutcurrenciesapp.AppDelegate
 import dagger.Module
 import dagger.Provides
 import dagger.android.support.AndroidSupportInjectionModule
-import io.reactivex.Scheduler
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Singleton
 
 @Module(
@@ -28,8 +27,12 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideWorkerScheduler() : Scheduler = Schedulers.io()
+    fun connectivityManager(context: Context): ConnectivityManager {
+        return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    }
 
     @Provides
-    fun provideErrorMapper() : ErrorMapper<AppError> = ApiErrorMapper()
+    fun currencyInteractor(currencyRepository: CurrencyRepository): CurrencyInteractor {
+        return CurrencyInteractorImpl(currencyRepository)
+    }
 }

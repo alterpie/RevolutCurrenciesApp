@@ -1,4 +1,4 @@
-package com.example.revolutcurrenciesapp.model
+package com.example.revolutcurrenciesapp.view.currency.model
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

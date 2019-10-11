@@ -15,10 +15,11 @@ ext {
     archComponentsVersion = '2.0.0'
     moshiVersion = '1.7.0'
     retrofitVersion = '2.5.0'
-    rxJava2Version = '2.2.8'
+    rxJava2Version = '2.2.13'
+    rxKotlinVersion = '2.4.0'
     rxAndroidVersion = '2.1.1'
     okhttpVersion = '3.12.1'
-    
+
     jUnitVersion = '4.12'
     espressoVersion = '3.1.1'
     testRunnerVersion = '1.1.1'
@@ -45,6 +46,8 @@ ext {
             okhttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$okhttpVersion",
 
             rxJava2                 : "io.reactivex.rxjava2:rxjava:$rxJava2Version",
+            rxAndroid               : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+            rxKotlin                : "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion",
             archComponents          : "androidx.lifecycle:lifecycle-extensions:$archComponentsVersion",
 
             espresso                : "androidx.test.espresso:espresso-core:$espressoVersion",

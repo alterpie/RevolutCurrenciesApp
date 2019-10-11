@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.revolutcurrenciesapp.R
+import com.example.revolutcurrenciesapp.base.adapter.ViewTypeDelegateAdapter
 import com.example.revolutcurrenciesapp.model.LoadingModel
 
 class LoadingItemDelegateAdapter :

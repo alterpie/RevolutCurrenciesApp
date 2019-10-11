@@ -1,19 +1,19 @@
 package com.example.revolutcurrenciesapp.view.currency.adapter
 
-import com.example.revolutcurrenciesapp.base.BaseDiffUtil
-import com.example.revolutcurrenciesapp.common.adapter.AdapterKeys
+import com.example.revolutcurrenciesapp.base.adapter.AdapterKeys
+import com.example.revolutcurrenciesapp.base.adapter.BaseDiffUtil
 import com.example.revolutcurrenciesapp.common.adapter.LoadingAdapter
 import com.example.revolutcurrenciesapp.common.adapter.LoadingItemDelegateAdapter
-import com.example.revolutcurrenciesapp.model.CurrencyModel
+import com.example.revolutcurrenciesapp.view.currency.model.CurrencyUi
 
 class CurrenciesAdapter(
-    onItemClick: (CurrencyModel) -> Unit,
+    onItemClick: (CurrencyUi) -> Unit,
     onAmountChanged: (Double) -> Unit
-) : LoadingAdapter<CurrencyModel>() {
+) : LoadingAdapter<CurrencyUi>() {
     override fun getDiffUtil(
-        oldItems: List<CurrencyModel>,
-        newItems: List<CurrencyModel>
-    ): BaseDiffUtil<CurrencyModel> =
+        oldItems: List<CurrencyUi>,
+        newItems: List<CurrencyUi>
+    ): BaseDiffUtil<CurrencyUi> =
         CurrencyDiffUtil(oldItems, newItems)
 
     init {

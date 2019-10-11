@@ -1,7 +1,6 @@
-package com.example.revolutcurrenciesapp.base
+package com.example.revolutcurrenciesapp.base.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.revolutcurrenciesapp.common.adapter.ViewType
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseDiffUtil<T : ViewType>(private val oldItems: List<T>, private val newItems: List<T>) :

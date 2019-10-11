@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.revolutcurrenciesapp.R
+import com.example.revolutcurrenciesapp.base.adapter.AdapterKeys
 
 
 class LoadingItemDecoration(context: Context) : RecyclerView.ItemDecoration() {

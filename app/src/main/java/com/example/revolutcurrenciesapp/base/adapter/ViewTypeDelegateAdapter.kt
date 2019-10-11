@@ -1,4 +1,4 @@
-package com.example.revolutcurrenciesapp.common.adapter
+package com.example.revolutcurrenciesapp.base.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

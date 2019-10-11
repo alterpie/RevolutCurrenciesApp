@@ -1,7 +1,8 @@
 package com.example.revolutcurrenciesapp.di.module
 
+import android.net.ConnectivityManager
+import com.example.data.NetworkErrorInterceptor
 import com.example.data.RevolutApi
-import com.example.data.RxErrorHandlingCallAdapterFactory
 import com.example.revolutcurrenciesapp.BuildConfig
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -9,6 +10,7 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -43,13 +45,14 @@ class RemoteModule {
         return Retrofit.Builder()
             .baseUrl(com.example.data.BuildConfig.API_APP_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     }
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient =
+    fun provideOkHttpClient(connectivityManager: ConnectivityManager): OkHttpClient =
         getCommonOkHttpBuilder()
+            .addNetworkInterceptor(NetworkErrorInterceptor(connectivityManager))
             .build()
 
     @Provides
@@ -61,5 +64,6 @@ class RemoteModule {
 
     @Provides
     @Singleton
-    fun provideRemoteService(retrofit: Retrofit): RevolutApi = retrofit.create(RevolutApi::class.java)
+    fun provideRemoteService(retrofit: Retrofit): RevolutApi =
+        retrofit.create(RevolutApi::class.java)
 }

@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.revolutcurrenciesapp.R
-import com.example.revolutcurrenciesapp.common.adapter.ViewTypeDelegateAdapter
-import com.example.revolutcurrenciesapp.model.CurrencyModel
+import com.example.revolutcurrenciesapp.base.adapter.ViewTypeDelegateAdapter
+import com.example.revolutcurrenciesapp.view.currency.model.CurrencyUi
 import com.example.revolutcurrenciesapp.util.TextWatcherAbstract
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_currency.*
@@ -15,15 +15,15 @@ import java.text.DecimalFormat
 
 
 class CurrencyDelegateAdapter(
-    private var items: () -> List<CurrencyModel>,
-    private val onItemClick: (CurrencyModel) -> Unit,
+    private var items: () -> List<CurrencyUi>,
+    private val onItemClick: (CurrencyUi) -> Unit,
     private val onAmountChanged: (Double) -> Unit
 ) :
-    ViewTypeDelegateAdapter<CurrencyModel, CurrencyDelegateAdapter.CurrencyViewHolder> {
+    ViewTypeDelegateAdapter<CurrencyUi, CurrencyDelegateAdapter.CurrencyViewHolder> {
 
     override fun onBindViewHolder(
         holder: CurrencyViewHolder,
-        item: CurrencyModel,
+        item: CurrencyUi,
         payloads: MutableList<Any>
     ) {
         holder.bind(payloads[0] as CurrencyPayload)
@@ -38,7 +38,7 @@ class CurrencyDelegateAdapter(
             )
         )
 
-    override fun onBindViewHolder(holder: CurrencyViewHolder, item: CurrencyModel) =
+    override fun onBindViewHolder(holder: CurrencyViewHolder, item: CurrencyUi) =
         holder.bind(item)
 
     inner class CurrencyViewHolder(view: View) : RecyclerView.ViewHolder(view), LayoutContainer {
@@ -71,7 +71,7 @@ class CurrencyDelegateAdapter(
             })
         }
 
-        fun bind(item: CurrencyModel) {
+        fun bind(item: CurrencyUi) {
             edit_text_amount.setText(df.format(item.amount))
             if (cursorPosition <= edit_text_amount.length())
                 edit_text_amount.setSelection(cursorPosition)

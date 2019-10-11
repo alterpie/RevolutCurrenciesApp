@@ -20,4 +20,8 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
     }
+
+    open fun handleEvent(event: Event) {
+        // base error handling
+    }
 }
