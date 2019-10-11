@@ -5,19 +5,18 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.error.NoConnectivityException
 import com.example.revolutcurrenciesapp.R
 import com.example.revolutcurrenciesapp.base.*
 import com.example.revolutcurrenciesapp.common.adapter.LoadingItemDecoration
+import com.example.revolutcurrenciesapp.extensions.hideKeyboard
+import com.example.revolutcurrenciesapp.extensions.isConnectivityException
 import com.example.revolutcurrenciesapp.features.currency.adapter.CurrenciesAdapter
 import com.example.revolutcurrenciesapp.features.currency.adapter.CurrencyItemDecoration
 import com.example.revolutcurrenciesapp.features.currency.di.currencyModule
-import com.example.revolutcurrenciesapp.util.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.module.Module
-import java.net.*
 
 class CurrencyActivity : BaseActivity() {
 
@@ -89,17 +88,5 @@ class CurrencyActivity : BaseActivity() {
 
     companion object {
         private const val HIDE_KEYBOARD_ITEMS_THRESHOLD = 3
-    }
-
-    private fun Throwable.isConnectivityException():Boolean{
-        return when (this) {
-            is NoConnectivityException,
-            is ConnectException,
-            is SocketException,
-            is SocketTimeoutException,
-            is UnknownHostException,
-            is ProtocolException -> true
-            else -> false
-        }
     }
 }

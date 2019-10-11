@@ -1,7 +1,6 @@
-package com.example.revolutcurrenciesapp.common.adapter
+package com.example.revolutcurrenciesapp.base.adapter
 
-import com.example.revolutcurrenciesapp.base.adapter.BaseAdapter
-import com.example.revolutcurrenciesapp.model.LoadingModel
+import com.example.revolutcurrenciesapp.common.adapter.LoadingModel
 
 abstract class LoadingAdapter<T : ViewType> : BaseAdapter<T>() {
 

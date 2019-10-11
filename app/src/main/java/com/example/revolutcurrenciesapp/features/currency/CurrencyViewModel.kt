@@ -35,7 +35,7 @@ class CurrencyViewModel(
                 .onEach {
                     updateState(CurrencyViewState(it, ScreenState.Content))
                 }
-                .onStart { updateState(CurrencyViewState(emptyList(), ScreenState.Loading)) }
+                .onStart { updateState { copy(screenState = ScreenState.Loading) } }
                 .catch {
                     handleError(it)
                     updateState { copy(screenState = ScreenState.Error(it)) }

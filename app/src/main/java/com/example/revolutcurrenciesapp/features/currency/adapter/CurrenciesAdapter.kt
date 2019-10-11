@@ -1,8 +1,8 @@
 package com.example.revolutcurrenciesapp.features.currency.adapter
 
 import com.example.revolutcurrenciesapp.base.adapter.BaseDiffUtil
-import com.example.revolutcurrenciesapp.common.adapter.AdapterKeys
-import com.example.revolutcurrenciesapp.common.adapter.LoadingAdapter
+import com.example.revolutcurrenciesapp.base.adapter.AdapterKeys
+import com.example.revolutcurrenciesapp.base.adapter.LoadingAdapter
 import com.example.revolutcurrenciesapp.common.adapter.LoadingItemDelegateAdapter
 import com.example.revolutcurrenciesapp.features.currency.model.CurrencyUi
 

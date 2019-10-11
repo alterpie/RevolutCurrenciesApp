@@ -37,7 +37,7 @@ private fun getCommonOkHttpBuilder(connectivityManager: ConnectivityManager): Ok
         .readTimeout(timeout, TimeUnit.SECONDS)
         .writeTimeout(timeout, TimeUnit.SECONDS)
         .connectTimeout(timeout, TimeUnit.SECONDS)
-        .addInterceptor(NetworkErrorInterceptor(connectivityManager))
+        .addNetworkInterceptor(NetworkErrorInterceptor(connectivityManager))
 
     if (BuildConfig.DEBUG) {
         okHttpClientBuilder.addNetworkInterceptor(HttpLoggingInterceptor().apply {

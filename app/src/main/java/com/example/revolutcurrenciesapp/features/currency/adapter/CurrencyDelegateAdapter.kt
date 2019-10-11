@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.revolutcurrenciesapp.R
-import com.example.revolutcurrenciesapp.common.adapter.ViewTypeDelegateAdapter
+import com.example.revolutcurrenciesapp.base.adapter.ViewTypeDelegateAdapter
 import com.example.revolutcurrenciesapp.features.currency.model.CurrencyUi
-import com.example.revolutcurrenciesapp.util.TextWatcherAbstract
+import com.example.revolutcurrenciesapp.extensions.TextWatcherAbstract
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_currency.*
 import java.text.DecimalFormat

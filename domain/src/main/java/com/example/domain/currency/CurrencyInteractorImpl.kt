@@ -1,6 +1,5 @@
 package com.example.domain.currency
 
-import com.example.domain.CurrencyRepository
 import com.example.domain.currency.model.CurrenciesData
 import com.example.domain.currency.model.Currency
 import com.example.domain.extinsions.intervalFlow

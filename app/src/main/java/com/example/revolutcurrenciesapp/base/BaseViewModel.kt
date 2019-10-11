@@ -11,13 +11,13 @@ import kotlinx.coroutines.cancel
 
 abstract class BaseViewModel<T : ViewState> : ViewModel() {
 
-    init {
-//        updateState(getInitialState())
-    }
-
     val state: LiveData<T>
         get() = _state
     private val _state = MutableLiveData<T>()
+
+    init {
+        _state.value = this.getInitialState()
+    }
 
     val events = EventQueue()
 

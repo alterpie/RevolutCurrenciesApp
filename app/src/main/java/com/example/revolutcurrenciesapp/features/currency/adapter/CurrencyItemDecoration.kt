@@ -5,7 +5,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.revolutcurrenciesapp.R
-import com.example.revolutcurrenciesapp.common.adapter.AdapterKeys
+import com.example.revolutcurrenciesapp.base.adapter.AdapterKeys
 
 class CurrencyItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
     private val topMargin = context.resources.getDimensionPixelOffset(R.dimen.margin_unit_x2)

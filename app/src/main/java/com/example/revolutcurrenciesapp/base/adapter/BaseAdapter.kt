@@ -4,8 +4,6 @@ import android.view.ViewGroup
 import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.revolutcurrenciesapp.common.adapter.ViewType
-import com.example.revolutcurrenciesapp.common.adapter.ViewTypeDelegateAdapter
 
 abstract class BaseAdapter<T : ViewType> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

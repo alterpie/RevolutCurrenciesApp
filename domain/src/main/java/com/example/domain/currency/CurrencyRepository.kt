@@ -1,4 +1,4 @@
-package com.example.domain
+package com.example.domain.currency
 
 import com.example.domain.currency.model.CurrenciesData
 

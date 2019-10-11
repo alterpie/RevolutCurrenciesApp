@@ -1,7 +1,7 @@
 package com.example.revolutcurrenciesapp.features.currency.di
 
 import com.example.data.currency.CurrencyRepositoryImpl
-import com.example.domain.CurrencyRepository
+import com.example.domain.currency.CurrencyRepository
 import com.example.domain.currency.CurrencyInteractor
 import com.example.domain.currency.CurrencyInteractorImpl
 import com.example.revolutcurrenciesapp.features.currency.CurrencyViewModel
